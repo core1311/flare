@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com">
+  <title>Fiery Topaz — Canvas Bar Chart with Mirror DOM A11y</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <div class="app-layout">
+    <nav class="sidebar" id="sidebar-nav" aria-label="Main">
+      <div class="brand">
+        <img src="./fiery-topaz.svg" alt="" class="brand-logo" aria-hidden="true">
+        <span class="brand-name">Fiery Topaz</span>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
+      </div>
+      <ul>
+        <li><a href="#" data-page="page-chart" aria-current="page">Chart</a></li>
+        <li>
+          <a href="#" data-page="page-how">How It Works</a>
+          <ul class="sub-menu">
+            <li><a href="#" data-page="page-mirror">Mirror DOM</a></li>
+            <li><a href="#" data-page="page-m3">Material M3</a></li>
+            <li><a href="#" data-page="page-neuro">Neurodivergent UX</a></li>
+            <li><a href="#" data-page="page-arch">Architecture</a></li>
+          </ul>
+        </li>
+        <li><a href="#" data-page="page-guide">A11y Guide</a></li>
+        <li><a href="#" data-page="page-prefs">Settings</a></li>
+      </ul>
+    </nav>
+
+    <main id="main-content" class="content-area">
+
+      <!-- Chart page -->
+      <section id="page-chart" class="page-section">
+        <div class="nav-bar">
+          <button id="flare-back" aria-label="Go back one level">&#8592; Back</button>
+          <nav id="flare-breadcrumb" aria-label="Chart breadcrumb"></nav>
+        </div>
+        <div id="flare-main"></div>
+        <button id="flare-stream" class="print-btn stream-btn" aria-label="Toggle data streaming" aria-pressed="true">&#9655;</button>
+        <button id="flare-print" class="print-btn" aria-label="Print chart and data">&#128424;</button>
+      </section>
+
+      <!-- Guide page -->
+      <section id="page-guide" class="page-section guide" style="display:none">
+        <h2>A11y Guide: Keyboard Navigation</h2>
+
+        <p>This chart is fully navigable with a keyboard. You don't need a mouse to explore the data, drill into details, or go back.</p>
+
+        <h3>Keyboard shortcuts</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Key</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td>
+              <td>Move between bars in the chart</td>
+            </tr>
+            <tr>
+              <td><kbd>Enter</kbd> or <kbd>Space</kbd></td>
+              <td>Drill into the selected bar to see more detail</td>
+            </tr>
+            <tr>
+              <td><kbd>Escape</kbd></td>
+              <td>Go back one level</td>
+            </tr>
+            <tr>
+              <td><kbd>Backspace</kbd></td>
+              <td>Go back one level (common in data tools like Excel and Power BI)</td>
+            </tr>
+            <tr>
+              <td><kbd>Alt</kbd>+<kbd>&#8592;</kbd></td>
+              <td>Go back one level (browser-style navigation)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>How the chart works</h3>
+
+        <p>The chart shows trade volumes for 2025. It has three levels of detail:</p>
+
+        <ol>
+          <li><strong>Year view</strong> — 12 monthly bars. Click or press Enter on a month to see its weeks.</li>
+          <li><strong>Month view</strong> — 4 or 5 weekly bars. Click or press Enter on a week to see daily data.</li>
+          <li><strong>Week view</strong> — 5 daily bars (Monday to Friday). This is the most detailed level.</li>
+        </ol>
+
+        <p>The breadcrumb trail above the chart shows where you are. Click any level in the breadcrumb to jump back to it.</p>
+
+        <h3>Ways to go back</h3>
+
+        <p>There are several ways to return to the previous level. Use whichever feels natural:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>How</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><kbd>Escape</kbd></td>
+              <td>Press Escape anywhere on the page</td>
+              <td>Universal convention — works in dialogs, menus, and drill-downs</td>
+            </tr>
+            <tr>
+              <td><kbd>Backspace</kbd></td>
+              <td>Press Backspace when not typing in a text field</td>
+              <td>Familiar if you use Excel pivot tables or Power BI</td>
+            </tr>
+            <tr>
+              <td><kbd>Alt</kbd>+<kbd>&#8592;</kbd></td>
+              <td>Hold Alt and press the left arrow key</td>
+              <td>Same shortcut as browser back — intercepted here to navigate within the chart</td>
+            </tr>
+            <tr>
+              <td>Back button</td>
+              <td>Click the &#8592; Back button above the chart</td>
+              <td>Only visible when you've drilled in</td>
+            </tr>
+            <tr>
+              <td>Breadcrumb</td>
+              <td>Click a level name in the breadcrumb trail</td>
+              <td>Jump directly to any level — not just one step back</td>
+            </tr>
+            <tr>
+              <td>Swipe right</td>
+              <td>Swipe right on the chart (touch screens)</td>
+              <td>Mobile equivalent of back — matches iOS and Android navigation patterns</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Screen reader experience</h3>
+
+        <p>When you navigate to the chart, your screen reader will announce:</p>
+        <ul>
+          <li>The chart title and data summary (range of values, highest and lowest)</li>
+          <li>Each bar's label and value as you Tab through them</li>
+          <li>A live announcement when you drill in or out (e.g. "Showing January 2025: 4 weeks")</li>
+        </ul>
+
+        <p>A hidden data table is also available for screen readers that prefer table navigation. Use your screen reader's table navigation commands to browse the data in rows and columns.</p>
+
+        <p>To understand how this works under the hood, see the <a href="#" data-page="page-how" class="page-link">How It Works</a> page.</p>
+      </section>
+
+      <!-- How It Works — overview (default landing for directors) -->
+      <section id="page-how" class="page-section guide" style="display:none">
+        <h2>How It Works</h2>
+
+        <p>Fiery Topaz is a proof of concept for two hard problems in canvas-rendered applications: making them accessible, and keeping them visually consistent. Here is what each piece does and why it matters.</p>
+
+        <h3>Why canvas?</h3>
+
+        <p>A growing number of web applications render to canvas instead of the DOM — design tools (Figma, Canva), games, maps, and large-scale data visualisations. Canvas gives pixel-level control and GPU-accelerated performance that HTML elements cannot match. The trade-off: assistive technology sees nothing. No buttons, no headings, no data. Fiery Topaz exists to prove that trade-off is solvable.</p>
+
+        <div class="overview-card">
+          <h3>Mirror DOM</h3>
+          <p>Canvas gives you fast, flexible rendering — but screen readers and keyboards cannot see it. Mirror DOM places invisible interactive elements over each bar so assistive technology works without compromising visual performance. One chart, two layers, zero trade-offs.</p>
+          <p>Figma and Flutter use the same approach. Fiery Topaz adapts it for data visualisation, where the natural accessible representation is a data table.</p>
+          <p><a href="#" data-page="page-mirror" class="page-link">Read the full Mirror DOM breakdown &rarr;</a></p>
+        </div>
+
+        <div class="overview-card">
+          <h3>Material M3 Design Tokens</h3>
+          <p>Every colour in Fiery Topaz comes from a single set of design tokens following Material Design 3 naming. Change the theme once, and the sidebar, headings, and chart bars all update together — even though the canvas cannot read CSS.</p>
+          <p>M3 uses a colour system called HCT that mathematically guarantees contrast. If the sidebar text is readable, the chart labels are too — same token pair, same guarantee.</p>
+          <p><a href="#" data-page="page-m3" class="page-link">Read the full M3 token breakdown &rarr;</a></p>
+        </div>
+
+        <div class="overview-card">
+          <h3>Neurodivergent UX</h3>
+          <p>15–20% of people are neurodivergent. Fiery Topaz respects browser-level signals like reduced motion and colour scheme automatically, and provides application-level controls for spacing and background tints.</p>
+          <p><a href="#" data-page="page-neuro" class="page-link">Read the Neurodivergent UX breakdown &rarr;</a></p>
+        </div>
+      </section>
+
+      <!-- Mirror DOM — technical detail -->
+      <section id="page-mirror" class="page-section guide" style="display:none">
+        <h2>Mirror DOM</h2>
+
+        <h3>The problem</h3>
+
+        <p>Charts built with canvas are fast and flexible — they can render thousands of data points smoothly. But to a screen reader or a keyboard, a canvas is just a blank rectangle. There are no buttons to press, no headings to navigate, no data to read. The entire chart is invisible to assistive technology.</p>
+
+        <p>This is the trade-off most charting libraries make: performance for sighted users, silence for everyone else.</p>
+
+        <h3>The solution: two layers from one source</h3>
+
+        <p>Fiery Topaz draws the chart twice — once for the eye and once for assistive technology:</p>
+
+        <ol>
+          <li><strong>The visual layer</strong> is the canvas. It draws the bars, axes, labels, and title that you see on screen.</li>
+          <li><strong>The accessibility layer</strong> is a set of invisible HTML elements placed exactly on top of each bar. These elements have labels, roles, and keyboard handlers — everything a screen reader or keyboard needs.</li>
+        </ol>
+
+        <p>Both layers come from the same data. When you drill into a month, the canvas redraws <em>and</em> the accessibility elements rebuild in the same step. They never drift out of sync.</p>
+
+        <p>This is the <strong>Mirror DOM</strong> pattern — the visible pixels and the accessible structure are two projections of the same thing.</p>
+
+        <h3>What you experience</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>If you are...</th>
+              <th>You interact with...</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Using a mouse</td>
+              <td>The canvas directly — click a bar to drill down</td>
+            </tr>
+            <tr>
+              <td>Using touch</td>
+              <td>Tap a bar to drill down, swipe right to go back</td>
+            </tr>
+            <tr>
+              <td>Using a keyboard</td>
+              <td>The invisible overlay elements — Tab highlights bars, Enter drills down, focus rings appear on the bars</td>
+            </tr>
+            <tr>
+              <td>Using a screen reader</td>
+              <td>Labels, a data table, and live announcements — the chart describes itself as you navigate</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>All three groups navigate the same chart with the same data. The mirror DOM makes this possible without duplicating the application logic.</p>
+
+        <h3>Who else does this?</h3>
+
+        <p><strong>Figma</strong> uses the same approach for their design editor — every shape on the canvas has a hidden HTML counterpart for screen readers and keyboard navigation. <strong>Flutter</strong> does something similar on the web, building a parallel semantics tree over its canvas output.</p>
+
+        <p>Fiery Topaz adapts the technique for data visualisation specifically, where the natural semantic representation is a data table rather than a tree of shapes.</p>
+
+        <h3>Canvas beyond charts — data platform use cases</h3>
+
+        <p>In a data platform, canvas rendering shows up wherever the DOM can't keep pace with the volume or complexity of what needs to be drawn:</p>
+
+        <ul>
+          <li><strong>Large-scale data grids</strong> — virtual scrolling grids (e.g. AG Grid's canvas renderer) where DOM nodes can't keep up with 100k+ rows. The grid draws cells to canvas for performance, but those cells are invisible to screen readers without a mirror layer.</li>
+          <li><strong>Flow and pipeline builders</strong> — drag-and-drop DAG editors for ETL/data pipelines (Pentaho, Airflow graph view, Azure Data Factory). Nodes and edges render to canvas for smooth panning and zooming. Each node needs a keyboard-focusable, labelled counterpart.</li>
+          <li><strong>Relationship and lineage graphs</strong> — entity graphs showing fund structures, counterparty networks, or data lineage. Force-directed layouts render thousands of nodes on canvas. Without a mirror, the entire graph is a silent rectangle.</li>
+          <li><strong>Geospatial overlays</strong> — Mapbox, deck.gl, and similar tools use WebGL to render millions of points on a canvas. Portfolio heatmaps, regional breakdowns, and risk maps all hit this pattern.</li>
+        </ul>
+
+        <p>Charts and graphs cover the majority of the canvas accessibility problem in data platforms. The mirror DOM pattern proven here applies directly to all of the above — same <code>SemNode</code> tree, different geometry.</p>
+
+        <h3>Canvas in other domains</h3>
+
+        <p>The same accessibility gap exists outside data platforms:</p>
+
+        <ul>
+          <li><strong>Design tools</strong> — Figma, Canva, Excalidraw (sub-pixel positioning, custom hit testing)</li>
+          <li><strong>Games</strong> — browser games via Canvas 2D / WebGL / WebGPU; engines like Unity, Unreal, Godot export to WASM with all UI inside the canvas</li>
+          <li><strong>Creative tools</strong> — photo/video editors, audio workstations (timelines, waveforms, pixel manipulation)</li>
+        </ul>
+
+        <p>All face the same problem: the more complex the canvas application, the harder it is to build the mirror — and the more essential it becomes.</p>
+
+        <h3>Rendering APIs and input devices</h3>
+
+        <p>Fiery Topaz uses <strong>Canvas 2D</strong> — the simplest rendering API. <strong>WebGL</strong> (GPU shaders, used by most 3D web apps and mapping tools) and <strong>WebGPU</strong> (its modern successor, modelled after Vulkan/Metal/DX12) face the same accessibility gap. Whether pixels come from a 2D context, a WebGL shader, or a WebGPU compute pipeline, the screen reader sees nothing. Mirror DOM works at the semantic level, not the rendering level.</p>
+
+        <p>The same applies to input devices. The <strong>Gamepad API</strong> lets web apps read controller input (thumbsticks, buttons, triggers), but gamepads have no concept of focus or ARIA. Mirror DOM provides the bridge — gamepad actions map to the same semantic elements that keyboard actions use.</p>
+
+        <hr>
+
+        <h3>Technical detail</h3>
+
+        <div class="note">
+          This section is for engineers interested in the implementation. It explains the architecture and the code path.
+        </div>
+
+        <h3>Why Rust and WebAssembly?</h3>
+
+        <p>Fiery Topaz's renderer is written in Rust, compiled to WebAssembly. A fair question: why not just use JavaScript?</p>
+
+        <p>For a 12-bar chart, it doesn't matter. JavaScript draws bars just fine. But Fiery Topaz is a proof of concept for a pattern, and the pattern needs to scale to real applications:</p>
+
+        <ul>
+          <li><strong>Predictable performance</strong> — Rust compiles to native-speed WASM with no garbage collector. There are no surprise pauses mid-frame. For a chart with 12 bars this is irrelevant; for a chart with 10,000 data points or a 60fps animation, it is the difference between smooth and janky.</li>
+          <li><strong>Memory safety without a runtime</strong> — Rust catches out-of-bounds access, use-after-free, and data races at compile time. The WASM module cannot corrupt the browser's memory. JavaScript relies on the engine's runtime checks, which are good but come with overhead.</li>
+          <li><strong>Clear boundary</strong> — the WASM module has a narrow, typed interface: data in, geometry out. This forces a clean separation between rendering (deterministic, pure computation) and orchestration (stateful, DOM-touching, async). That boundary is what makes the mirror DOM pattern maintainable.</li>
+          <li><strong>Portability</strong> — the same Rust code can compile to native (for a desktop app), to WASM (for the browser), or to a test harness (for CI). The rendering logic is not coupled to the browser environment.</li>
+        </ul>
+
+        <p>The trade-off is build complexity. You need the Rust toolchain, <code>wasm-pack</code>, and a build step. For a small demo that's overhead; for a production canvas app with thousands of renders per second, it pays for itself.</p>
+
+        <p>This is the same bet Figma made — their rendering engine is C++ compiled to WASM. It is also why game engines targeting the web (Unity, Godot) compile their C++/C# cores to WASM rather than rewriting in JavaScript.</p>
+
+        <h3>Architecture: Rust renders, JavaScript orchestrates</h3>
+
+        <p>The rendering engine has one job: take data in, draw pixels on the canvas, and return the geometry of what it drew. It knows nothing about the DOM, accessibility, or navigation.</p>
+
+        <p>JavaScript handles everything else: loading data, managing the navigation stack, building the mirror DOM, wiring keyboard handlers, and announcing changes to screen readers.</p>
+
+        <p>This split means new features (like drill-down, breadcrumb navigation, or keyboard shortcuts) don't require recompiling the WASM module.</p>
+
+        <h3>The render cycle</h3>
+
+        <p>Every time the view changes (drill in, drill out, jump via breadcrumb), this sequence runs:</p>
+
+        <ol>
+          <li><strong>Extract data</strong> — pull the right slice from the dataset (e.g. "weeks in March" or "days in Week 2")</li>
+          <li><strong>Call WASM <code>render()</code></strong> — redraws the canvas and returns semantic nodes as JSON: <code>SemNode[]</code> with role, label, value, and geometry for each bar</li>
+          <li><strong>Tear down old mirror DOM</strong> — remove the previous overlay elements and semantic table</li>
+          <li><strong>Build new mirror DOM</strong> — for each bar rect, create a transparent <code>&lt;div&gt;</code> positioned at the exact pixel coordinates (adjusted for device pixel ratio). Set <code>role="button"</code>, <code>tabindex="0"</code>, and an <code>aria-label</code> with the bar's value</li>
+          <li><strong>Build semantic table</strong> — a visually hidden <code>&lt;table&gt;</code> with the same data, for screen readers that prefer table navigation</li>
+          <li><strong>Update breadcrumb and live region</strong> — so the user knows where they are and what changed</li>
+          <li><strong>Move focus</strong> — to the first bar overlay, so keyboard users land in the right place</li>
+        </ol>
+
+        <h3>The overlay technique</h3>
+
+        <p>The canvas sits inside a <code>position: relative</code> container. The overlay layer is <code>position: absolute</code> filling the same space. Each bar overlay is absolutely positioned at the bar's coordinates:</p>
+
+        <pre><code>&lt;div class="chart-container" style="position: relative"&gt;
+  &lt;canvas id="chart" width="700" height="450"&gt;&lt;/canvas&gt;
+  &lt;div class="mirror-overlay"&gt;
+    &lt;div class="bar-overlay"
+         role="button" tabindex="0"
+         aria-label="Jan: 1,200 Trades. Click to drill down."
+         style="left: 85px; top: 62px; width: 36px; height: 338px"&gt;
+    &lt;/div&gt;
+    &lt;!-- one per bar --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <p>The overlays are transparent — the canvas shows through. But they receive native browser focus, so <kbd>Tab</kbd> moves through them and <code>:focus-visible</code> draws a ring on the bar. Click and keyboard events on the overlays trigger drill-down, not the canvas.</p>
+
+        <h3>Device pixel ratio</h3>
+
+        <p>The WASM renderer works in canvas pixel coordinates (e.g. 700×450 on a 2× display is actually 1400×900 canvas pixels). The overlay divs need CSS coordinates. The JS divides every bar rect dimension by <code>window.devicePixelRatio</code> when positioning overlays. Get this wrong and the focus rings appear in the wrong place.</p>
+
+        <h3>What can go wrong</h3>
+
+        <p>Mirror DOM introduces failure modes that don't exist in regular web UIs:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Failure</th>
+              <th>What happens</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Missing mirror</td>
+              <td>A bar exists on canvas but has no overlay — invisible to keyboard and screen readers</td>
+            </tr>
+            <tr>
+              <td>Stale mirror</td>
+              <td>Data changed, canvas updated, but the overlays still show the old data</td>
+            </tr>
+            <tr>
+              <td>Misaligned mirror</td>
+              <td>Overlay is at the wrong coordinates — focus ring appears in the wrong place</td>
+            </tr>
+            <tr>
+              <td>Lost focus</td>
+              <td>After drill-down, focus disappears instead of moving to the new content</td>
+            </tr>
+            <tr>
+              <td>Silent transition</td>
+              <td>The chart visually updates but the live region doesn't announce what changed</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>Fiery Topaz's <code>?fail=</code> query parameter lets you toggle each of these failure modes on and off, so accessibility scanners can be tested against known-broken states.</p>
+
+        <h3>Further reading</h3>
+
+        <ul>
+          <li><a href="../../../../docs/mirror-dom.md">Mirror DOM technical documentation</a> — full pattern description, prior art, and references</li>
+        </ul>
+      </section>
+
+      <!-- Material M3 — technical detail -->
+      <section id="page-m3" class="page-section guide" style="display:none">
+        <h2>Material M3 Design Tokens</h2>
+
+        <h3>Design tokens: one palette, two renderers</h3>
+
+        <p>Fiery Topaz uses a single set of colour values — called <strong>design tokens</strong> — to style everything you see. The sidebar, the headings, and the chart bars all draw their colours from the same source. When you toggle between light and dark mode, every element updates together because they all read from the same place.</p>
+
+        <p>This matters for accessibility. Material Design 3 (M3) defines its colours using a system called <strong>HCT</strong> (Hue, Chroma, Tone) that mathematically guarantees text will have enough contrast against its background. If the sidebar text is readable, the chart labels are too — because they use the same token pair.</p>
+
+        <p>The challenge is that canvas doesn't read CSS. A normal HTML element picks up colours automatically from a stylesheet. A canvas ignores stylesheets entirely — you have to tell it what colour to paint, explicitly, every frame. Fiery Topaz bridges this gap by reading the CSS tokens from JavaScript and passing them into the rendering engine as data.</p>
+
+        <h3>How the token pipeline works</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Step</th>
+              <th>What happens</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. CSS defines</td>
+              <td>Tokens like <code>--mat-sys-primary</code> and <code>--mat-sys-surface</code> are set as CSS custom properties on the page. Light and dark themes override these values.</td>
+            </tr>
+            <tr>
+              <td>2. DOM consumes</td>
+              <td>HTML elements (sidebar, buttons, headings) use <code>var(--mat-sys-primary)</code> in their styles — standard CSS, nothing unusual.</td>
+            </tr>
+            <tr>
+              <td>3. JS reads</td>
+              <td>A <code>readTheme()</code> function calls <code>getComputedStyle()</code> to read the current token values as plain strings (e.g. <code>"#386A20"</code>).</td>
+            </tr>
+            <tr>
+              <td>4. JSON crosses the boundary</td>
+              <td>The token values are packed into a JSON object and passed to the Rust/WASM rendering engine as a function parameter.</td>
+            </tr>
+            <tr>
+              <td>5. WASM paints</td>
+              <td>The renderer deserialises the JSON into a typed <code>Theme</code> struct and uses those values in every <code>set_fill_style_str()</code> call — background, axes, bars, labels.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>The result: CSS is the single source of truth. Toggle the theme, and both the DOM chrome and the canvas chart update in the same frame — no manual synchronisation needed.</p>
+
+        <h3>Drill-level tonal variation</h3>
+
+        <p>The chart uses three levels of the M3 tonal palette to indicate depth as you drill down:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Level</th>
+              <th>Token</th>
+              <th>Visual effect</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Year (12 months)</td>
+              <td><code>--mat-sys-primary</code></td>
+              <td>Dark green — the strongest tone, anchoring the top level</td>
+            </tr>
+            <tr>
+              <td>Month (4–5 weeks)</td>
+              <td><code>--mat-sys-primary-container</code></td>
+              <td>Light green — softer, signalling you're one level deeper</td>
+            </tr>
+            <tr>
+              <td>Week (5 days)</td>
+              <td><code>--mat-sys-tertiary-container</code></td>
+              <td>Teal — a different hue entirely, marking the detail level</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>This tonal shift is a visual cue that works alongside the breadcrumb and live-region announcements. You can tell at a glance which level you're looking at, even without reading the title.</p>
+
+        <h3>Why M3 tokens?</h3>
+
+        <p>The demo uses Material 3-style <code>--mat-sys-*</code> custom properties to show how theme values can pass from CSS through JavaScript to the WebAssembly renderer. Any framework that can read CSS custom properties can provide the same inputs.</p>
+
+        <p>It uses raw CSS custom properties so the example does not depend on a particular framework or styling library.</p>
+
+        <h3>Light and dark themes</h3>
+
+        <p>Light theme tokens are defined on <code>:root</code>. Dark theme overrides live on <code>body.dark</code>. The toggle button adds or removes the <code>dark</code> class — JavaScript re-reads <code>getComputedStyle(document.body)</code> and passes the new values to WASM. Both the DOM chrome and the canvas repaint in the same frame.</p>
+
+        <p>Because M3 HCT defines light and dark variants from the same seed colour, contrast ratios are guaranteed in both themes without manual checking.</p>
+      </section>
+
+      <!-- Neurodivergent UX -->
+      <section id="page-neuro" class="page-section guide" style="display:none">
+        <h2>Neurodivergent UX</h2>
+
+        <p>15–20% of people are neurodivergent. Good design for this group is good design for everyone. Fiery Topaz uses two layers: browser-provided signals (automatic) and application-level controls in <a href="#" data-page="page-prefs" class="page-link">Settings</a>.</p>
+
+        <h3>What browsers provide today</h3>
+
+        <table>
+          <thead>
+            <tr><th>Signal</th><th>What it does</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>prefers-reduced-motion</code></td><td>Disables animation, streams text instantly. The Rust rendering engine reads this signal directly via <code>matchMedia</code> — chart transitions skip to the final frame without JS coordination.</td><td><strong>Done</strong></td></tr>
+            <tr><td><code>prefers-color-scheme</code></td><td>Switches light/dark theme automatically</td><td><strong>Done</strong></td></tr>
+            <tr><td><code>prefers-contrast</code></td><td>Increases border and text contrast</td><td>Planned</td></tr>
+            <tr><td><code>prefers-reduced-transparency</code></td><td>Removes translucent surfaces</td><td>Planned</td></tr>
+            <tr><td><code>forced-colors</code></td><td>Respects Windows High Contrast mode</td><td>Planned</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Gaps in browser support — filled by 3rd party tools and addons</h3>
+
+        <table>
+          <thead>
+            <tr><th>Control</th><th>What it does</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Reading spacing</td><td>Wider line height, letter and word spacing</td><td><strong>Done</strong></td></tr>
+            <tr><td>Background tint</td><td>Cream or blue-grey overlay for visual stress</td><td><strong>Done</strong></td></tr>
+            <tr><td>Motion intensity</td><td>Scale animation duration 0%–100% instead of binary</td><td>Planned</td></tr>
+            <tr><td>Font override</td><td>Switch to OpenDyslexic, Lexend, or Atkinson Hyperlegible</td><td>Planned</td></tr>
+            <tr><td>Density toggle</td><td>Compact vs spacious layout via M3 density tokens</td><td>Planned</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Architecture -->
+      <section id="page-arch" class="page-section guide" style="display:none">
+        <h2>Architecture</h2>
+
+        <p>Rust renders pixels and returns semantic geometry. JS orchestrates state, DOM, events, and accessibility. CSS tokens bridge both — canvas can't read CSS, so JS reads computed values and passes them across the WASM boundary as JSON.</p>
+
+        <h3>Data flow</h3>
+
+        <p><code>CSS tokens &rarr; JS readTheme() &rarr; JSON &rarr; WASM render() &rarr; canvas pixels + SemNode[] &rarr; JS mirror-dom &rarr; overlay divs + sr-only table + live region</code></p>
+
+        <h3>Components</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Language</th>
+              <th>Responsibility</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="3"><strong>Flare libraries</strong> (reusable, any canvas app can depend on these)</td></tr>
+            <tr>
+              <td><code>flare-chart</code></td>
+              <td>Rust (rlib)</td>
+              <td>Web bar chart: theme, rendering, tick math, and animation with <code>prefers-reduced-motion</code>. Re-exports flare-core.</td>
+            </tr>
+            <tr>
+              <td><code>flare-core</code></td>
+              <td>Rust (rlib)</td>
+              <td><code>SemNode</code> struct (geometry + semantics), <code>Describable</code> trait. Platform-agnostic — pure Rust + serde, no web deps.</td>
+            </tr>
+            <tr>
+              <td><code>mirror-dom</code></td>
+              <td>JS (ES module)</td>
+              <td>Takes <code>SemNode[]</code>, builds overlay divs, sr-only data table, live region. Framework-agnostic, no build step.</td>
+            </tr>
+            <tr><td colspan="3"><strong>Fiery Topaz</strong> (first consumer — adds app-specific features)</td></tr>
+            <tr>
+              <td><code>fiery-topaz</code></td>
+              <td>Rust (cdylib)</td>
+              <td>WASM bindings: <code>render</code>, <code>render_animated</code>, <code>create_canvas</code>. Implements <code>Describable</code>. Built with <code>--out-name flare</code>.</td>
+            </tr>
+            <tr>
+              <td><code>app.js</code></td>
+              <td>JS</td>
+              <td>Navigation stack, drill-down, breadcrumbs, streaming, theme toggle, keyboard handlers, mirror-dom wiring.</td>
+            </tr>
+            <tr>
+              <td><code>style.css</code></td>
+              <td>CSS</td>
+              <td>M3 design tokens (<code>--mat-sys-*</code>), light/dark themes, reduced motion, dyslexia spacing, background tints.</td>
+            </tr>
+            <tr>
+              <td><code>fail-shim.js</code></td>
+              <td>JS</td>
+              <td>14 togglable failure flags via <code>?fail=</code> — breaks mirror DOM, focus, live region for scanner testing.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Key design decisions</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Decision</th>
+              <th>Why</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>flare-chart is rlib only (no <code>#[wasm_bindgen]</code>)</td>
+              <td>Avoids WASM name collisions — only the consumer crate exports bindings</td>
+            </tr>
+            <tr>
+              <td>Reduced motion read in Rust, not just JS</td>
+              <td>Consumers get correct behaviour by default, even if they forget the JS check</td>
+            </tr>
+            <tr>
+              <td>SemNode is platform-agnostic</td>
+              <td>Same JSON drives web overlays, Android <code>AccessibilityNodeInfo</code>, or iOS <code>UIAccessibilityElement</code></td>
+            </tr>
+            <tr>
+              <td>CSS is the single source of truth for colour</td>
+              <td>Toggle light/dark once — both DOM and canvas update in the same frame</td>
+            </tr>
+            <tr>
+              <td>No hardcoded colour fallbacks</td>
+              <td>M3 HCT guarantees contrast mathematically — fallbacks would bypass that guarantee</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>Detail on each layer: <a href="#" data-page="page-mirror" class="page-link">Mirror DOM</a> · <a href="#" data-page="page-m3" class="page-link">M3 Tokens</a> · <a href="#" data-page="page-neuro" class="page-link">Neurodivergent UX</a></p>
+
+      </section>
+
+      <!-- Settings — application-level neurodivergent controls -->
+      <section id="page-prefs" class="page-section guide" style="display:none">
+        <h2>Settings</h2>
+
+        <h3>Browser signals</h3>
+
+        <p>These are built into the browser. Toggle them here to test without changing your OS settings.</p>
+
+        <h4>Reduced motion</h4>
+        <p>Override <code>prefers-reduced-motion</code>. Suppresses animation and makes the streaming demo show text instantly.</p>
+        <div class="pref-control">
+          <button id="pref-motion-default" class="pref-btn pref-btn-active">OS default</button>
+          <button id="pref-motion-reduce" class="pref-btn">Reduce</button>
+        </div>
+
+        <h4>Colour scheme</h4>
+        <p>Already wired to the theme toggle in the sidebar. The app also auto-detects <code>prefers-color-scheme</code> on load.</p>
+        <div class="pref-control">
+          <button id="pref-scheme-light" class="pref-btn pref-btn-active">Light</button>
+          <button id="pref-scheme-dark" class="pref-btn">Dark</button>
+          <button id="pref-scheme-dataowl" class="pref-btn">DataOwl</button>
+        </div>
+
+        <div class="pref-placeholder" aria-disabled="true">
+          <h4>High contrast</h4>
+          <p><code>prefers-contrast</code> — increases border weight and text contrast. <em>Planned.</em></p>
+        </div>
+
+        <div class="pref-placeholder" aria-disabled="true">
+          <h4>Reduced transparency</h4>
+          <p><code>prefers-reduced-transparency</code> — removes translucent surfaces. <em>Planned.</em></p>
+        </div>
+
+        <div class="pref-placeholder" aria-disabled="true">
+          <h4>Forced colours</h4>
+          <p><code>forced-colors</code> — respects Windows High Contrast mode. <em>Planned.</em></p>
+        </div>
+
+        <h3>Application controls</h3>
+
+        <p>These address needs that browsers don't cover yet. They work through the same CSS custom property pipeline as the M3 theme — change a token, and both the DOM and the canvas update together.</p>
+
+        <h4>Reading spacing</h4>
+        <p>Wider line height, letter spacing, and word spacing reduce visual crowding for dyslexic readers.</p>
+        <div class="pref-control">
+          <button id="pref-spacing-default" class="pref-btn pref-btn-active">Default</button>
+          <button id="pref-spacing-dyslexia" class="pref-btn">Dyslexia-friendly</button>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Default</th>
+              <th>Dyslexia-friendly</th>
+              <th>Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Line height</td>
+              <td>1.4</td>
+              <td>1.6</td>
+              <td>Rello &amp; Baeza-Yates 2013</td>
+            </tr>
+            <tr>
+              <td>Letter spacing</td>
+              <td>normal</td>
+              <td>0.08em</td>
+              <td>Zorzi et al. 2012 (PNAS)</td>
+            </tr>
+            <tr>
+              <td>Word spacing</td>
+              <td>normal</td>
+              <td>0.16em</td>
+              <td>Crowding reduction</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Background tint</h4>
+        <p>Tinted backgrounds reduce visual stress from high-contrast text (Irlen Syndrome). Same principle as coloured overlays used in schools.</p>
+        <div class="pref-control">
+          <button id="pref-tint-none" class="pref-btn pref-btn-active">Default</button>
+          <button id="pref-tint-cream" class="pref-btn">Cream</button>
+          <button id="pref-tint-blue" class="pref-btn">Blue-grey</button>
+        </div>
+
+        <div class="pref-placeholder" aria-disabled="true">
+          <h4>Motion intensity</h4>
+          <p>Scale animation duration 0%–100% instead of binary on/off. <em>Planned.</em></p>
+        </div>
+
+        <div class="pref-placeholder" aria-disabled="true">
+          <h4>Font override</h4>
+          <p>Switch to OpenDyslexic, Lexend, or Atkinson Hyperlegible. <em>Planned.</em></p>
+        </div>
+
+        <div class="pref-placeholder" aria-disabled="true">
+          <h4>Density toggle</h4>
+          <p>Compact vs spacious layout via M3 density tokens. <em>Planned.</em></p>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+  <script type="module" src="./fail-shim.js"></script>
+</body>
+</html>

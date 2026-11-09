@@ -1,0 +1,32 @@
+name: Publish flare-core
+
+on:
+  push:
+    tags:
+      - "flare-core-v*"
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo test --workspace
+      - name: Verify tag matches crate version
+        shell: bash
+        run: |
+          tag_version="${GITHUB_REF_NAME#flare-core-v}"
+          crate_version="$(cargo metadata --format-version 1 --no-deps | jq -r '.packages[] | select(.name == "flare-core") | .version')"
+          if [[ "$tag_version" != "$crate_version" ]]; then
+            echo "Tag version $tag_version does not match flare-core version $crate_version" >&2
+            exit 1
+          fi
+      - name: Verify package
+        run: cargo publish --package flare-core --dry-run
+      - name: Publish to crates.io
+        run: cargo publish --package flare-core
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CRATES_IO_TOKEN }}

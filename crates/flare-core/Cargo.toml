@@ -1,0 +1,16 @@
+[package]
+name = "flare-core"
+version = "0.1.0"
+edition.workspace = true
+description = "Platform-neutral semantic descriptions for accessible canvas-rendered interfaces"
+readme = "README.md"
+license.workspace = true
+repository.workspace = true
+keywords = ["accessibility", "canvas", "semantics"]
+categories = ["accessibility", "data-structures"]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+
+[dev-dependencies]
+serde_json = "1"

@@ -1,0 +1,258 @@
+{
+  "title": "Trade Volumes",
+  "yAxisTitle": "Trades",
+  "months": {
+    "Jan": {
+      "total": 1200,
+      "weeks": {
+        "W1 (Jan 6–10)": {
+          "total": 280,
+          "days": { "Mon": 52, "Tue": 61, "Wed": 58, "Thu": 55, "Fri": 54 }
+        },
+        "W2 (Jan 13–17)": {
+          "total": 310,
+          "days": { "Mon": 60, "Tue": 65, "Wed": 72, "Thu": 58, "Fri": 55 }
+        },
+        "W3 (Jan 20–24)": {
+          "total": 295,
+          "days": { "Mon": 55, "Tue": 62, "Wed": 60, "Thu": 63, "Fri": 55 }
+        },
+        "W4 (Jan 27–31)": {
+          "total": 315,
+          "days": { "Mon": 58, "Tue": 68, "Wed": 65, "Thu": 60, "Fri": 64 }
+        }
+      }
+    },
+    "Feb": {
+      "total": 980,
+      "weeks": {
+        "W1 (Feb 3–7)": {
+          "total": 240,
+          "days": { "Mon": 42, "Tue": 50, "Wed": 52, "Thu": 48, "Fri": 48 }
+        },
+        "W2 (Feb 10–14)": {
+          "total": 255,
+          "days": { "Mon": 48, "Tue": 55, "Wed": 50, "Thu": 52, "Fri": 50 }
+        },
+        "W3 (Feb 17–21)": {
+          "total": 248,
+          "days": { "Mon": 45, "Tue": 53, "Wed": 51, "Thu": 50, "Fri": 49 }
+        },
+        "W4 (Feb 24–28)": {
+          "total": 237,
+          "days": { "Mon": 44, "Tue": 49, "Wed": 48, "Thu": 50, "Fri": 46 }
+        }
+      }
+    },
+    "Mar": {
+      "total": 1450,
+      "weeks": {
+        "W1 (Mar 3–7)": {
+          "total": 340,
+          "days": { "Mon": 62, "Tue": 70, "Wed": 75, "Thu": 68, "Fri": 65 }
+        },
+        "W2 (Mar 10–14)": {
+          "total": 365,
+          "days": { "Mon": 68, "Tue": 78, "Wed": 80, "Thu": 72, "Fri": 67 }
+        },
+        "W3 (Mar 17–21)": {
+          "total": 350,
+          "days": { "Mon": 65, "Tue": 74, "Wed": 72, "Thu": 70, "Fri": 69 }
+        },
+        "W4 (Mar 24–28)": {
+          "total": 395,
+          "days": { "Mon": 72, "Tue": 85, "Wed": 82, "Thu": 78, "Fri": 78 }
+        }
+      }
+    },
+    "Apr": {
+      "total": 1100,
+      "weeks": {
+        "W1 (Apr 7–11)": {
+          "total": 260,
+          "days": { "Mon": 48, "Tue": 55, "Wed": 54, "Thu": 52, "Fri": 51 }
+        },
+        "W2 (Apr 14–18)": {
+          "total": 275,
+          "days": { "Mon": 50, "Tue": 58, "Wed": 60, "Thu": 55, "Fri": 52 }
+        },
+        "W3 (Apr 21–25)": {
+          "total": 290,
+          "days": { "Mon": 55, "Tue": 60, "Wed": 62, "Thu": 58, "Fri": 55 }
+        },
+        "W4 (Apr 28–30)": {
+          "total": 275,
+          "days": { "Mon": 52, "Tue": 58, "Wed": 55, "Thu": 56, "Fri": 54 }
+        }
+      }
+    },
+    "May": {
+      "total": 1680,
+      "weeks": {
+        "W1 (May 5–9)": {
+          "total": 390,
+          "days": { "Mon": 72, "Tue": 82, "Wed": 85, "Thu": 78, "Fri": 73 }
+        },
+        "W2 (May 12–16)": {
+          "total": 420,
+          "days": { "Mon": 78, "Tue": 90, "Wed": 88, "Thu": 85, "Fri": 79 }
+        },
+        "W3 (May 19–23)": {
+          "total": 405,
+          "days": { "Mon": 75, "Tue": 85, "Wed": 84, "Thu": 82, "Fri": 79 }
+        },
+        "W4 (May 26–30)": {
+          "total": 465,
+          "days": { "Mon": 88, "Tue": 98, "Wed": 95, "Thu": 92, "Fri": 92 }
+        }
+      }
+    },
+    "Jun": {
+      "total": 1320,
+      "weeks": {
+        "W1 (Jun 2–6)": {
+          "total": 315,
+          "days": { "Mon": 58, "Tue": 66, "Wed": 68, "Thu": 62, "Fri": 61 }
+        },
+        "W2 (Jun 9–13)": {
+          "total": 330,
+          "days": { "Mon": 62, "Tue": 70, "Wed": 72, "Thu": 65, "Fri": 61 }
+        },
+        "W3 (Jun 16–20)": {
+          "total": 340,
+          "days": { "Mon": 63, "Tue": 72, "Wed": 70, "Thu": 68, "Fri": 67 }
+        },
+        "W4 (Jun 23–27)": {
+          "total": 335,
+          "days": { "Mon": 62, "Tue": 70, "Wed": 68, "Thu": 68, "Fri": 67 }
+        }
+      }
+    },
+    "Jul": {
+      "total": 1150,
+      "weeks": {
+        "W1 (Jul 7–11)": {
+          "total": 265,
+          "days": { "Mon": 48, "Tue": 56, "Wed": 55, "Thu": 54, "Fri": 52 }
+        },
+        "W2 (Jul 14–18)": {
+          "total": 290,
+          "days": { "Mon": 54, "Tue": 62, "Wed": 60, "Thu": 58, "Fri": 56 }
+        },
+        "W3 (Jul 21–25)": {
+          "total": 300,
+          "days": { "Mon": 56, "Tue": 64, "Wed": 62, "Thu": 60, "Fri": 58 }
+        },
+        "W4 (Jul 28–31)": {
+          "total": 295,
+          "days": { "Mon": 55, "Tue": 62, "Wed": 60, "Thu": 60, "Fri": 58 }
+        }
+      }
+    },
+    "Aug": {
+      "total": 1050,
+      "weeks": {
+        "W1 (Aug 4–8)": {
+          "total": 245,
+          "days": { "Mon": 44, "Tue": 52, "Wed": 50, "Thu": 50, "Fri": 49 }
+        },
+        "W2 (Aug 11–15)": {
+          "total": 260,
+          "days": { "Mon": 48, "Tue": 55, "Wed": 54, "Thu": 52, "Fri": 51 }
+        },
+        "W3 (Aug 18–22)": {
+          "total": 270,
+          "days": { "Mon": 50, "Tue": 58, "Wed": 55, "Thu": 54, "Fri": 53 }
+        },
+        "W4 (Aug 25–29)": {
+          "total": 275,
+          "days": { "Mon": 52, "Tue": 58, "Wed": 56, "Thu": 55, "Fri": 54 }
+        }
+      }
+    },
+    "Sep": {
+      "total": 1380,
+      "weeks": {
+        "W1 (Sep 1–5)": {
+          "total": 325,
+          "days": { "Mon": 60, "Tue": 68, "Wed": 70, "Thu": 65, "Fri": 62 }
+        },
+        "W2 (Sep 8–12)": {
+          "total": 350,
+          "days": { "Mon": 65, "Tue": 74, "Wed": 72, "Thu": 70, "Fri": 69 }
+        },
+        "W3 (Sep 15–19)": {
+          "total": 360,
+          "days": { "Mon": 66, "Tue": 76, "Wed": 74, "Thu": 72, "Fri": 72 }
+        },
+        "W4 (Sep 22–26)": {
+          "total": 345,
+          "days": { "Mon": 64, "Tue": 72, "Wed": 70, "Thu": 70, "Fri": 69 }
+        }
+      }
+    },
+    "Oct": {
+      "total": 1520,
+      "weeks": {
+        "W1 (Oct 6–10)": {
+          "total": 360,
+          "days": { "Mon": 66, "Tue": 76, "Wed": 74, "Thu": 72, "Fri": 72 }
+        },
+        "W2 (Oct 13–17)": {
+          "total": 385,
+          "days": { "Mon": 72, "Tue": 80, "Wed": 82, "Thu": 76, "Fri": 75 }
+        },
+        "W3 (Oct 20–24)": {
+          "total": 395,
+          "days": { "Mon": 74, "Tue": 84, "Wed": 82, "Thu": 78, "Fri": 77 }
+        },
+        "W4 (Oct 27–31)": {
+          "total": 380,
+          "days": { "Mon": 70, "Tue": 80, "Wed": 78, "Thu": 76, "Fri": 76 }
+        }
+      }
+    },
+    "Nov": {
+      "total": 1410,
+      "weeks": {
+        "W1 (Nov 3–7)": {
+          "total": 335,
+          "days": { "Mon": 62, "Tue": 70, "Wed": 68, "Thu": 68, "Fri": 67 }
+        },
+        "W2 (Nov 10–14)": {
+          "total": 355,
+          "days": { "Mon": 66, "Tue": 74, "Wed": 72, "Thu": 72, "Fri": 71 }
+        },
+        "W3 (Nov 17–21)": {
+          "total": 370,
+          "days": { "Mon": 68, "Tue": 78, "Wed": 76, "Thu": 74, "Fri": 74 }
+        },
+        "W4 (Nov 24–28)": {
+          "total": 350,
+          "days": { "Mon": 65, "Tue": 74, "Wed": 72, "Thu": 70, "Fri": 69 }
+        }
+      }
+    },
+    "Dec": {
+      "total": 890,
+      "weeks": {
+        "W1 (Dec 1–5)": {
+          "total": 280,
+          "days": { "Mon": 52, "Tue": 60, "Wed": 58, "Thu": 56, "Fri": 54 }
+        },
+        "W2 (Dec 8–12)": {
+          "total": 265,
+          "days": { "Mon": 48, "Tue": 56, "Wed": 55, "Thu": 54, "Fri": 52 }
+        },
+        "W3 (Dec 15–19)": {
+          "total": 230,
+          "days": { "Mon": 42, "Tue": 50, "Wed": 48, "Thu": 46, "Fri": 44 }
+        },
+        "W4 (Dec 22–26)": {
+          "total": 115,
+          "days": { "Mon": 28, "Tue": 30, "Wed": 25, "Thu": 18, "Fri": 14 }
+        }
+      }
+    }
+  }
+}
