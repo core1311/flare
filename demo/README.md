@@ -1,4 +1,4 @@
-# Flare Web Demo (Fiery Topaz)
+# Flare Demo
 
 Canvas bar chart in Rust/WASM with a Mirror DOM accessibility bridge.
 

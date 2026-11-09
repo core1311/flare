@@ -1,5 +1,5 @@
 /**
- * Failure shim for Fiery Topaz test app.
+ * Failure shim for the Flare demo.
  *
  * Usage: append ?fail=flag1,flag2 to the URL.
  * No flags = clean baseline. ?fail=all = everything breaks.

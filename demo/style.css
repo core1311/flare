@@ -173,14 +173,6 @@ body {
   padding: 1rem 0.75rem;
   border-bottom: 1px solid var(--mat-sys-outline-variant);
 }
-.brand-logo {
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
-}
-body.dark .brand-logo {
-  filter: brightness(0) invert(1);
-}
 .brand-name {
   font-size: 0.875rem;
   font-weight: 600;

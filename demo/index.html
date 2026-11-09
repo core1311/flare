@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com">
-  <title>Fiery Topaz — Canvas Bar Chart with Mirror DOM A11y</title>
+  <title>Flare Demo — Canvas Bar Chart with Mirror DOM Accessibility</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
@@ -16,8 +16,7 @@
   <div class="app-layout">
     <nav class="sidebar" id="sidebar-nav" aria-label="Main">
       <div class="brand">
-        <img src="./fiery-topaz.svg" alt="" class="brand-logo" aria-hidden="true">
-        <span class="brand-name">Fiery Topaz</span>
+        <span class="brand-name">Flare Demo</span>
         <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
       </div>
       <ul>
@@ -164,29 +163,29 @@
       <section id="page-how" class="page-section guide" style="display:none">
         <h2>How It Works</h2>
 
-        <p>Fiery Topaz is a proof of concept for two hard problems in canvas-rendered applications: making them accessible, and keeping them visually consistent. Here is what each piece does and why it matters.</p>
+        <p>Flare Demo explores two hard problems in canvas-rendered applications: making them accessible, and keeping them visually consistent. Here is what each piece does and why it matters.</p>
 
         <h3>Why canvas?</h3>
 
-        <p>A growing number of web applications render to canvas instead of the DOM — design tools (Figma, Canva), games, maps, and large-scale data visualisations. Canvas gives pixel-level control and GPU-accelerated performance that HTML elements cannot match. The trade-off: assistive technology sees nothing. No buttons, no headings, no data. Fiery Topaz exists to prove that trade-off is solvable.</p>
+        <p>A growing number of web applications render to canvas instead of the DOM — design tools (Figma, Canva), games, maps, and large-scale data visualisations. Canvas gives pixel-level control and GPU-accelerated performance that HTML elements cannot match. The trade-off: assistive technology sees nothing. No buttons, no headings, no data. Flare Demo shows how that trade-off can be addressed.</p>
 
         <div class="overview-card">
           <h3>Mirror DOM</h3>
           <p>Canvas gives you fast, flexible rendering — but screen readers and keyboards cannot see it. Mirror DOM places invisible interactive elements over each bar so assistive technology works without compromising visual performance. One chart, two layers, zero trade-offs.</p>
-          <p>Figma and Flutter use the same approach. Fiery Topaz adapts it for data visualisation, where the natural accessible representation is a data table.</p>
+          <p>Figma and Flutter use the same approach. Flare Demo adapts it for data visualisation, where the natural accessible representation is a data table.</p>
           <p><a href="#" data-page="page-mirror" class="page-link">Read the full Mirror DOM breakdown &rarr;</a></p>
         </div>
 
         <div class="overview-card">
           <h3>Material M3 Design Tokens</h3>
-          <p>Every colour in Fiery Topaz comes from a single set of design tokens following Material Design 3 naming. Change the theme once, and the sidebar, headings, and chart bars all update together — even though the canvas cannot read CSS.</p>
+          <p>Every colour in Flare Demo comes from a single set of design tokens following Material Design 3 naming. Change the theme once, and the sidebar, headings, and chart bars all update together — even though the canvas cannot read CSS.</p>
           <p>M3 uses a colour system called HCT that mathematically guarantees contrast. If the sidebar text is readable, the chart labels are too — same token pair, same guarantee.</p>
           <p><a href="#" data-page="page-m3" class="page-link">Read the full M3 token breakdown &rarr;</a></p>
         </div>
 
         <div class="overview-card">
           <h3>Neurodivergent UX</h3>
-          <p>15–20% of people are neurodivergent. Fiery Topaz respects browser-level signals like reduced motion and colour scheme automatically, and provides application-level controls for spacing and background tints.</p>
+          <p>15–20% of people are neurodivergent. Flare Demo respects browser-level signals like reduced motion and colour scheme automatically, and provides application-level controls for spacing and background tints.</p>
           <p><a href="#" data-page="page-neuro" class="page-link">Read the Neurodivergent UX breakdown &rarr;</a></p>
         </div>
       </section>
@@ -203,7 +202,7 @@
 
         <h3>The solution: two layers from one source</h3>
 
-        <p>Fiery Topaz draws the chart twice — once for the eye and once for assistive technology:</p>
+        <p>Flare Demo draws the chart twice — once for the eye and once for assistive technology:</p>
 
         <ol>
           <li><strong>The visual layer</strong> is the canvas. It draws the bars, axes, labels, and title that you see on screen.</li>
@@ -249,7 +248,7 @@
 
         <p><strong>Figma</strong> uses the same approach for their design editor — every shape on the canvas has a hidden HTML counterpart for screen readers and keyboard navigation. <strong>Flutter</strong> does something similar on the web, building a parallel semantics tree over its canvas output.</p>
 
-        <p>Fiery Topaz adapts the technique for data visualisation specifically, where the natural semantic representation is a data table rather than a tree of shapes.</p>
+        <p>Flare Demo adapts the technique for data visualisation specifically, where the natural semantic representation is a data table rather than a tree of shapes.</p>
 
         <h3>Canvas beyond charts — data platform use cases</h3>
 
@@ -278,7 +277,7 @@
 
         <h3>Rendering APIs and input devices</h3>
 
-        <p>Fiery Topaz uses <strong>Canvas 2D</strong> — the simplest rendering API. <strong>WebGL</strong> (GPU shaders, used by most 3D web apps and mapping tools) and <strong>WebGPU</strong> (its modern successor, modelled after Vulkan/Metal/DX12) face the same accessibility gap. Whether pixels come from a 2D context, a WebGL shader, or a WebGPU compute pipeline, the screen reader sees nothing. Mirror DOM works at the semantic level, not the rendering level.</p>
+        <p>Flare Demo uses <strong>Canvas 2D</strong> — the simplest rendering API. <strong>WebGL</strong> (GPU shaders, used by most 3D web apps and mapping tools) and <strong>WebGPU</strong> (its modern successor, modelled after Vulkan/Metal/DX12) face the same accessibility gap. Whether pixels come from a 2D context, a WebGL shader, or a WebGPU compute pipeline, the screen reader sees nothing. Mirror DOM works at the semantic level, not the rendering level.</p>
 
         <p>The same applies to input devices. The <strong>Gamepad API</strong> lets web apps read controller input (thumbsticks, buttons, triggers), but gamepads have no concept of focus or ARIA. Mirror DOM provides the bridge — gamepad actions map to the same semantic elements that keyboard actions use.</p>
 
@@ -292,9 +291,9 @@
 
         <h3>Why Rust and WebAssembly?</h3>
 
-        <p>Fiery Topaz's renderer is written in Rust, compiled to WebAssembly. A fair question: why not just use JavaScript?</p>
+        <p>Flare Demo's renderer is written in Rust, compiled to WebAssembly. A fair question: why not just use JavaScript?</p>
 
-        <p>For a 12-bar chart, it doesn't matter. JavaScript draws bars just fine. But Fiery Topaz is a proof of concept for a pattern, and the pattern needs to scale to real applications:</p>
+        <p>For a 12-bar chart, it doesn't matter. JavaScript draws bars just fine. But Flare Demo explores a pattern that needs to scale to real applications:</p>
 
         <ul>
           <li><strong>Predictable performance</strong> — Rust compiles to native-speed WASM with no garbage collector. There are no surprise pauses mid-frame. For a chart with 12 bars this is irrelevant; for a chart with 10,000 data points or a 60fps animation, it is the difference between smooth and janky.</li>
@@ -386,7 +385,7 @@
           </tbody>
         </table>
 
-        <p>Fiery Topaz's <code>?fail=</code> query parameter lets you toggle each of these failure modes on and off, so accessibility scanners can be tested against known-broken states.</p>
+        <p>Flare Demo's <code>?fail=</code> query parameter lets you toggle each of these failure modes on and off, so accessibility scanners can be tested against known-broken states.</p>
 
         <h3>Further reading</h3>
 
@@ -401,11 +400,11 @@
 
         <h3>Design tokens: one palette, two renderers</h3>
 
-        <p>Fiery Topaz uses a single set of colour values — called <strong>design tokens</strong> — to style everything you see. The sidebar, the headings, and the chart bars all draw their colours from the same source. When you toggle between light and dark mode, every element updates together because they all read from the same place.</p>
+        <p>Flare Demo uses a single set of colour values — called <strong>design tokens</strong> — to style everything you see. The sidebar, the headings, and the chart bars all draw their colours from the same source. When you toggle between light and dark mode, every element updates together because they all read from the same place.</p>
 
         <p>This matters for accessibility. Material Design 3 (M3) defines its colours using a system called <strong>HCT</strong> (Hue, Chroma, Tone) that mathematically guarantees text will have enough contrast against its background. If the sidebar text is readable, the chart labels are too — because they use the same token pair.</p>
 
-        <p>The challenge is that canvas doesn't read CSS. A normal HTML element picks up colours automatically from a stylesheet. A canvas ignores stylesheets entirely — you have to tell it what colour to paint, explicitly, every frame. Fiery Topaz bridges this gap by reading the CSS tokens from JavaScript and passing them into the rendering engine as data.</p>
+        <p>The challenge is that canvas doesn't read CSS. A normal HTML element picks up colours automatically from a stylesheet. A canvas ignores stylesheets entirely — you have to tell it what colour to paint, explicitly, every frame. Flare Demo bridges this gap by reading the CSS tokens from JavaScript and passing them into the rendering engine as data.</p>
 
         <h3>How the token pipeline works</h3>
 
@@ -492,7 +491,7 @@
       <section id="page-neuro" class="page-section guide" style="display:none">
         <h2>Neurodivergent UX</h2>
 
-        <p>15–20% of people are neurodivergent. Good design for this group is good design for everyone. Fiery Topaz uses two layers: browser-provided signals (automatic) and application-level controls in <a href="#" data-page="page-prefs" class="page-link">Settings</a>.</p>
+        <p>15–20% of people are neurodivergent. Good design for this group is good design for everyone. Flare Demo uses two layers: browser-provided signals (automatic) and application-level controls in <a href="#" data-page="page-prefs" class="page-link">Settings</a>.</p>
 
         <h3>What browsers provide today</h3>
 
@@ -562,9 +561,9 @@
               <td>JS (ES module)</td>
               <td>Takes <code>SemNode[]</code>, builds overlay divs, sr-only data table, live region. Framework-agnostic, no build step.</td>
             </tr>
-            <tr><td colspan="3"><strong>Fiery Topaz</strong> (first consumer — adds app-specific features)</td></tr>
+            <tr><td colspan="3"><strong>Flare Demo</strong> (web demonstration of the reusable libraries)</td></tr>
             <tr>
-              <td><code>fiery-topaz</code></td>
+              <td><code>flare-demo</code></td>
               <td>Rust (cdylib)</td>
               <td>WASM bindings: <code>render</code>, <code>render_animated</code>, <code>create_canvas</code>. Implements <code>Describable</code>. Built with <code>--out-name flare</code>.</td>
             </tr>

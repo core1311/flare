@@ -11,7 +11,7 @@ if [ ! -d "$DIR/pkg" ]; then
 fi
 
 echo ""
-echo "  Fiery Topaz test app"
+echo "  Flare Demo"
 echo "  ────────────────────"
 echo "  Baseline (clean):  http://localhost:$PORT/"
 echo "  All failures:      http://localhost:$PORT/?fail=all"
